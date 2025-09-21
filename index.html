@@ -1,0 +1,79 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Click for the code!</title>
+  <style>
+    html,body{height:100%;margin:0;overflow:hidden}
+    body{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-family:sans-serif;
+      font-size:2rem;
+      cursor:pointer;
+      background:white;
+    }
+    #clickme{
+      z-index:3;
+      position:absolute;
+      pointer-events:auto;
+      padding:12px 18px;
+      border-radius:8px;
+      background:rgba(255, 255, 255, 0.85);
+      box-shadow:0 12px 36px rgba(0,0,0,.82)
+    }
+    #popupText{
+      position:absolute;
+      top:10px;
+      left:50%;
+      transform:translateX(-50%);
+      background:rgba(0,0,0,0.7);
+      color:white;
+      padding:8px 14px;
+      border-radius:6px;
+      font-size:1.2rem;
+      display:none;
+      z-index:5;
+    }
+    canvas{display:block;position:absolute;inset:0;z-index:1}
+  </style>
+</head>
+<body>
+
+  <!-- Yes, I Used AI To Make This Code but lets be honest, its 2025, everyone uses ai for at least something these days. -->
+  <div id="popupText">Epilepsy Simulator!!</div>
+  <div id="clickme">Click for the code!</div>
+
+  <audio id="sound"><source src="sounds/loudrickroll.webm" type="audio/webm"></audio>
+  <script>
+    const clickme = document.getElementById('clickme');
+    const popupText = document.getElementById('popupText');
+    const sound = document.getElementById('sound');
+    let flashingStarted = false;
+
+    function goFullscreen(){
+      const d = document.documentElement;
+      if (d.requestFullscreen) d.requestFullscreen();
+      else if (d.webkitRequestFullscreen) d.webkitRequestFullscreen();
+      else if (d.mozRequestFullScreen) d.mozRequestFullScreen();
+      else if (d.msRequestFullscreen) d.msRequestFullscreen();
+    }
+
+    clickme.addEventListener('click', () => {
+      sound.play().catch(()=>{});
+      goFullscreen();
+      popupText.style.display = "block";
+      if (!flashingStarted) {
+        flashingStarted = true;
+        const rainbow=["red","orange","yellow","green","blue","indigo","violet"];
+        let i=0;
+        setInterval(() => {
+          document.body.style.background=rainbow[i%rainbow.length];
+          i++;
+        }, 10);
+      }
+    });
+  </script>
+</body>
+</html>
